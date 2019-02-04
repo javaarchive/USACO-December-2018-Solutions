@@ -1,4 +1,4 @@
-// ConsoleApplication3.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// planting.cpp : This file contains the 'main' function. Program execution begins and ends there.
 // Note: Renamed it to planting.cpp
 
 //#include "pch.h"
@@ -8,8 +8,7 @@
 #include<vector>
 #include <algorithm>
 #include <iterator> 
-std::ifstream fin("planting.in");
-std::ofstream fout("planting.out");
+
 /*
 bool contains(std::vector<int> v,int x) {
 	if (std::find(v.begin(), v.end(), x) != v.end()) {
@@ -37,16 +36,30 @@ bool mcontains(std::map<int, std::vector<int>> v, int x) {
 		return false;
 	}
 }
+void killcheck() {
+	if (fin.fail() || fout.fail()) {
+		std::cout << "File outage";
+		std::exit(1);
+	}
+	if (!(fout.is_open() && fin.is_open())) {
+		std::cout << "File outage code 2";
+		std::exit(2);
+	}
+
+}
 int main()
 {
 	//std::map<int, std::vector<int>>::iterator itr;
+	
 	int N;
+	std::ifstream fin("planting.in");
 	fin >> N;
 	std::cout << N;
 	std::map<int, std::vector<int>> edgeList;
 	int x, y;
 	std::vector<int> test;
-	
+	std::cout << "Init message " << std::endl;
+	//killcheck();
 	for (int i = 0; i < N - 1; i ++) {
 		//std::cout << "Test " << i << std::endl;
 		fin >> x;
@@ -110,15 +123,17 @@ int main()
 		if (addflag == 1) {
 			field[itr->first] = totalColorUsed + 1;
 			totalColorUsed++;
-			std::cout << "Added " << itr->first;
+			//std::cout << "Added " << itr->first;
 		}
 		delete[] colorUsed;
 		
 	}
 	delete[] field, colorUsedAll;
-	fout << totalColorUsed;
-	
-
+	std::cout << totalColorUsed;
+	std::ofstream fout("planting.out");
+	fout << totalColorUsed << std::endl;
+	//fin.close();
+	//fout.close();
 
 }
 
